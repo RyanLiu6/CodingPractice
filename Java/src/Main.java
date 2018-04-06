@@ -24,7 +24,7 @@ public class Main
     {
         if (right >= 1)
         {
-            int mid = (left + right)/2;
+            int mid = ( left + right)/2;
 
             if (arr[mid] == target)
             {
