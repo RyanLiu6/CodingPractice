@@ -1,18 +1,20 @@
-fibArr = []
+class Fib:
+    def __init__(self, maxSize):
+        self.size = maxSize
+        self.fibArr = []
+        self.fibArr.append(0)
+        self.fibArr.append(1)
 
+        for i in range(2, maxSize):
+            self.fibArr.append(self.fibArr[i - 2] + self.fibArr[i - 1])
 
-def prepareFib(n):
-    for i in range(n):
-        fibArr.append(-1)
+    def prepFib(self, n):
+        for i in range(self.size, n + 1):
+            self.fibArr.append(self.fibArr[i - 2] + self.fibArr[i - 1])
 
-    fibArr[0] = 1
-    fibArr[1] = 1
-
-    for i in range(n):
-        if i == 0 or i == 1:
-            continue
-        fibArr[i] = fibArr[i - 1] + fibArr[i - 2]
-
-
-def fib(n):
-    return fibArr[n-1]
+    def getFib(self, n):
+        if n < self.size:
+            return self.fibArr[n]
+        else:
+            self.prepFib(n)
+            return self.fibArr[n]

@@ -1,15 +1,15 @@
 def binarySearch(nums, left, right, target):
-        if right < left:
-            return -1
+    if right < left:
+        return -1
 
-        mid = int((left + right)/2)
+    mid = int((left + right)/2)
 
-        if nums[mid] == target:
-            return mid
-        elif nums[mid] < target:
-            return binarySearch(nums, left, mid - 1, target)
-        else:
-            return binarySearch(nums, mid + 1, right, target)
+    if nums[mid] == target:
+        return mid
+    elif nums[mid] < target:
+        return binarySearch(nums, left, mid - 1, target)
+    else:
+        return binarySearch(nums, mid + 1, right, target)
 
 
 def QuickSelect(nums, k):
