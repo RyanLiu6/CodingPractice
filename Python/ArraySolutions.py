@@ -13,7 +13,7 @@ class ArraySolutions:
 
         for i in range(1, len(nums)):
             if nums[i] != nums[tail]:
-                tail += 1
+                tail+=1
                 nums[tail] = nums[i]
 
         return tail + 1
@@ -46,26 +46,26 @@ class ArraySolutions:
         :type k: int
         :rtype: void Do not return anything, modify nums in-place instead.
         """
-        if not nums or k is 0:
-            return 0
+        if not nums or k == 0:
+            return
 
         n = len(nums)
 
         for i in range(self.gcd(n,k)):
-            complete = False
+            currComplete = False
             currIndex = i
             temp = nums[currIndex]
             swap = 0
 
-            while not complete:
+            while not currComplete:
                 newIndex = (currIndex + k) % n
-
                 swap = nums[newIndex]
                 nums[newIndex] = temp
                 temp = swap
                 currIndex = (currIndex + k) % n
-                if currIndex is i:
-                    complete = True
+
+                if currIndex == i:
+                    currComplete = True
 
     def gcd(self, a, b):
         if b == 0:
@@ -185,12 +185,13 @@ class ArraySolutions:
         carry = 1
 
         for i in range(n - 1, -1, -1):
-            curr = (digits[i] + carry)
-            carry = curr // 10
-            digits[i] = curr % 10
+            currVal = digits[i] + carry
+            carry = currVal // 10
+
+            digits[i] = currVal % 10
 
         if carry:
-            digits.insert(0,1)
+            digits.insert(0, 1)
 
         return digits
 
@@ -248,7 +249,6 @@ class ArraySolutions:
         """
         # Rows
         n = len(board)
-
 
     def rotate(self, matrix):
         """
