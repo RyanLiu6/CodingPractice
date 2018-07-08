@@ -1,5 +1,6 @@
 from fib import *
 from ArraySolutions import *
+from StringSolutions import *
 
 
 def main():
@@ -12,8 +13,11 @@ def main():
     # print(arrSoln.plusOne([1,2,3]))
     # print(arrSoln.moveZeroes([0,1,0,3,12]))
 
-    fib = Fib(10)
-    print(fib.getFib(25))
+    strSoln = StringSolutions()
+    print(strSoln.isAnagram("rat", "art"))
+
+    # fib = Fib(10)
+    # print(fib.getFib(25))
 
 if __name__ == "__main__":
     main()
