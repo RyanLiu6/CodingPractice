@@ -1,289 +1,268 @@
-import re
-import sys
-import utils
-import heapq
-
-
 class Solution:
-    def dailyTemperatures(self, temperatures):
-        """
-        :type temperatures: List[int]
-        :rtype: List[int]
-        :input: [73, 74, 75, 71, 69, 72, 76, 73]
-        :result:[ 1,  1,  4,  2,  1,  1,  0,  0]
-
-        :input:  [55,38,53,81,61,93,97,32,43,78]
-        :result: [ 3, 1, 1, 2, 1, 1, 0, 1, 1, 0]
-        """
-        n = len(temperatures)
-        tempDays = {}
-        result = [0]*len(temperatures)
-
-        for i in range(n - 1, -1, -1):
-            curr = temperatures[i]
-            day = 30001
-            for j in range(curr + 1, 101):
-                if j in tempDays:
-                    day = min(day, tempDays[j] - i)
-
-            if day != 30001:
-                result[i] = day
-            tempDays[curr] = i
-        return result
-
-    def missingNumber(self, nums):
+    def removeDuplicates(self, nums):
         """
         :type nums: List[int]
         :rtype: int
-        """
-        currSum = 0
-        n = len(nums)
-
-        for num in nums:
-            currSum += num
-
-        expectedSum = n*(n+1)/2
-
-        return int(expectedSum - currSum)
-
-    def hasAlternatingBits(self, n):
-        """
-        :type n: int
-        :rtype: bool
-        """
-        binStr = bin(n)[2:]
-        print(binStr)
-
-        res = re.search(r"/00|11", binStr)
-        if res:
-            return False
-        else:
-            return True
-
-    def findInPivoted(self, arr, query):
-        pivot = 0
-
-        for i in range(len(arr)-1):
-            if arr[i] > arr[i + 1]:
-                pivot = i + 1
-
-        val1 = utils.binarySearch(arr[:pivot], 0, pivot - 1, query)
-        val2 = utils.binarySearch(arr[pivot:], 0, len(arr) - pivot - 1, query)
-
-        if val1 == -1 and val2 == -1:
-            return -1
-        elif val1 == -1 and val2 != -1:
-            return val2
-        else:
-            return val1
-
-    def rob(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-
-        Either rob this house and 2 house down, or the next house
-        R(n) = max(R(n - 2) + nums[n], R(n - 1))
+        :input: [1,1,2]
+        :output: 2 w/ [1,2,whatever]
         """
         if not nums:
             return 0
 
-        n = len(nums)
-        if n < 2:
-            return nums[0]
+        tail = 0
 
-        robbed = dict.fromkeys(range(n), 0)
-        robbed[0] = nums[0]
+        for i in range(1, len(nums)):
+            if nums[i] != nums[tail]:
+                tail += 1
+                nums[tail] = nums[i]
 
-        robbed[1] = max(nums[1], robbed[0])
-
-        for i in range(2, n):
-            val1 = robbed[i - 1]
-            val2 = robbed[i - 2] + nums[i]
-
-            robbed[i] = max(val1, val2)
-
-        return robbed[n - 1]
-
-    def topKFrequent(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: List[int]
-        """
-
-        freq = dict.fromkeys(nums, 0)
-        result = [0]*k
-
-        for i in range(len(nums)):
-            freq[nums[i]] += 1
-
-        # maxHeap to get the top 3 values
-
-        return result
-
-    def countSubstrings(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        DP = [[-1 for x in range(len(s))] for y in range(len(s))]
-        return self.subPalindrome(DP, s)
-
-    def subPalindrome(self, DP, S):
-        count = 0
-
-        for i in range(len(S)):
-            for j in range(len(S)):
-                if DP[i][j] == -1 and i <= j:
-                    substr = S[i:j+1]
-                    if self.isPalindrome(substr):
-                        count += 1
-                    DP[i][j] = 1
-
-        return count
-
-    def isPalindrome(self, str):
-        return str == str[::-1]
+        return tail + 1
 
     def maxProfit(self, prices):
         """
         :type prices: List[int]
         :rtype: int
-        :input: [7, 1, 5, 3, 6, 4]
-        :output: 5 (6-1)
+        :input: [7,1,5,3,6,4]
+        :output: 7
         """
         if not prices:
             return 0
 
         buy = prices[0]
-        maxProfit = 0
+        profit = 0
 
         for price in prices:
-            buy = min(buy, price)
-            profit = price - buy
-            maxProfit = max(maxProfit, profit)
-        return maxProfit
+            if price < buy:
+                buy = price
+            else:
+                profit+=price-buy
+                buy = price
 
-    def maxSubArray(self, nums):
+        return profit
+
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        if not nums or k is 0:
+            return 0
+
+        n = len(nums)
+
+        for i in range(self.gcd(n,k)):
+            complete = False
+            currIndex = i
+            temp = nums[currIndex]
+            swap = 0
+
+            while not complete:
+                newIndex = (currIndex + k) % n
+
+                swap = nums[newIndex]
+                nums[newIndex] = temp
+                temp = swap
+                currIndex = (currIndex + k) % n
+                if currIndex is i:
+                    complete = True
+
+    def gcd(self, a, b):
+        if b == 0:
+            return a
+        else:
+            return self.gcd(b, a % b)
+
+    def containsDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        # O(n) time and space
+        dupDict = {}
+        for i in range(len(nums)):
+            if dupDict.get(nums[i],-1) is -1:
+                dupDict[nums[i]] = 1
+            else:
+                return True
+
+        return False
+
+        # O(n) time and O(1) space if numbers are between 0 and n-1
+        for i in range(len(nums)):
+            if nums[abs(nums[i])] >= 0:
+                nums[abs(nums[i])]*=-1
+            else:
+                return True
+
+        return False
+
+    def singleNumber(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        currSum = 0
-        maxSum = -sys.maxsize - 1
+        # O(n) time and space
+        numDict = {}
+        retVal = -1
+        for i in range(len(nums)):
+            if dupDict.get(nums[i],-1) is -1:
+                numDict[nums[i]] = 1
+            else:
+                numDict[nums[i]]+=1
 
-        for val in nums:
-            currSum = max(val, currSum + val)
-            maxSum = max(maxSum, currSum)
+        for key, value in numDict.items():
+            if value is 1:
+                retVal = key
 
-        return maxSum
+        return retVal
 
-    def maxProduct(self, nums):
+        # O(n) time and space
+        # numSet = set():
+        # for num in nums:
+        #     if num in numSet:
+        #         numSet.remove(num)
+        #     else:
+        #         numSet.add(num)
+        #
+        # return numSet.pop()
+
+        # O(n) time and O(1) space
+        retVal = 0
+        for num in nums:
+            retVal^=num
+
+        return retVal
+
+    def intersect(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: List[int]
+        """
+        n1 = len(nums1)
+        n2 = len(nums2)
+
+        if n1 is 0 or n2 is 0:
+            return []
+
+        if n1 is 0 and n2 is not 0:
+            return nums2
+
+        if n1 is not 0 and n2 is 0:
+            return nums1
+
+        if n1 < n2:
+            return self.intHelper(nums1, nums2)
+        else:
+            return self.intHelper(nums2, nums1)
+
+    def intHelper(self, a, b):
+        # Assume that len(a) < len(b)
+        numDict = {}
+        retArr = []
+
+        for num in a:
+            if numDict.get(num, -1) is -1:
+                numDict[num] = 1
+            else:
+                numDict[num]+=1
+
+        for num in b:
+            currVal = numDict.get(num, -1)
+            if currVal is not -1 and currVal > 0:
+                retArr.append(num)
+                numDict[num]-=1
+
+        return retArr
+
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        n = len(digits)
+        carry = 1
+
+        for i in range(n - 1, -1, -1):
+            curr = (digits[i] + carry)
+            carry = curr // 10
+            digits[i] = curr % 10
+
+        if carry:
+            digits.insert(0,1)
+
+        return digits
+
+    def moveZeroes(self, nums):
         """
         :type nums: List[int]
-        :rtype: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        :input: [0,1,0,3,12]
+        :output: [1,3,12,0,0]
         """
-        result = nums[0]
-        resMin = result
-        resMax = result
+        n = len(nums)
+        if not nums:
+            return
 
-        for i in range(1, len(nums)):
-            if nums[i] < 0:
-                temp = resMin
-                resMin = resMax
-                resMax = temp
+        # # O(n^2) time
+        # for i in range(n):
+        #     if nums[i] is 0:
+        #         nums.append(0)
+        #         nums.remove(0)
+        #         i+=1
 
-            resMin = min(resMin, resMin*nums[i])
-            resMax = max(resMax, resMax*nums[i])
+        # O(n) time
+        zero = 0
+        for i in range(n):
+            if nums[i] is not 0:
+                nums[i], nums[zero] = nums[zero], nums[i]
+                zero+=1
 
-            result = max(result, resMax)
-
-        return result
-
-    def sumOfString(self, str1, str2):
-        overflow = False
-        lastflow = False
-        n = len(str1) - 1
-        retStr = ""
-
-        for index in range(n, -1, -1):
-            currSum = int(str1[index]) + int(str2[index])
-            if overflow:
-                currSum += 1
-                overflow = False
-                if index == 0:
-                    lastflow = True
-
-            if currSum > 9:
-                overflow = True
-                currSum -= 10
-
-            retStr = str(currSum) + retStr
-
-            if lastflow:
-                retStr = "1" + retStr
-
-        return retStr
+        for num in nums:
+            print(num)
 
     def twoSum(self, nums, target):
         """
         :type nums: List[int]
         :type target: int
         :rtype: List[int]
-        :input: [2, 7, 11, 15] and 9
-        :output: [0, 1]
         """
-        hashMap = {}
-        n = len(nums)
+        numDict = {}
 
-        for index in range(n):
-            hashMap[nums[index]] = index
+        for i in range(len(nums)):
+            numDict[nums[i]] = i
 
-        for index in range(n):
-            minusNum = target - nums[index]
-            first = index
+        for i in range(len(nums)):
+            currTarget = target - nums[i]
+            val = numDict.get(currTarget, -1)
+            if val is not -1 and numDict[currTarget] is not i:
+                return (i, numDict[currTarget])
 
-            if hashMap.get(minusNum, -1) is not -1 and first is not hashMap[minusNum]:
-                return [index, hashMap[minusNum]]
+        return (0,0)
 
-    def findKthLargest(self, nums, k):
+    def isValidSudoku(self, board):
         """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        :input: [3,2,1,5,6,4] and k = 2
-        :output: 5
-        """
-
-        # O(nlgn): Regular Sort (MergeSort)
-        # return sorted(nums)[len(nums - k]
-
-        # O(n): Quick Select with lth smallest st l = len(nums) - k + 1
-        return utils.QuickSelect(nums, len(nums) - k + 1)
-
-    def removeElement(self, nums, val):
-        """
-        :type nums: List[int]
-        :type val: int
-        :rtype: int
-        :input: [3,2,2,3], val = 3
-        :output: len[2, 2] = 2
-        :req: O(1) space
-        """
-        start, end = 0, len(nums) - 1
-
-        while start <= end:
-            if nums[start] is val:
-                nums[start], nums[end] = nums[end], nums[start]
-                end -= 1
-            else:
-                start += 1
-
-        return start
-
-    def isHappy(self, n):
-        """
-        :type n: int
+        :type board: List[List[str]]
         :rtype: bool
         """
+        # Rows
+        n = len(board)
+
+
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        :input:     [4,8]
+                    [3,6]
+
+        :output:    [3,4]
+                    [6,8]
+        """
+        n = len(matrix)
+        matrix.reverse()
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
