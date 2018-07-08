@@ -1,4 +1,4 @@
-class Solution:
+class ArraySolutions:
     def removeDuplicates(self, nums):
         """
         :type nums: List[int]

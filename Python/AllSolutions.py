@@ -4,7 +4,7 @@ import utils
 import heapq
 
 
-class Solution:
+class AllSolutions:
     def dailyTemperatures(self, temperatures):
         """
         :type temperatures: List[int]
