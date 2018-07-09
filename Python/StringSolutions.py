@@ -120,17 +120,76 @@ class StringSolutions:
 
         return True
 
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        n = len(str)
+        resArr = []
+        resNum = 0
+        firstNum = False
+        negFlag = False
+
+        for i in range(n):
+            if str[i].isspace() and not firstNum:
+                continue
+            if str[i] == "-" and not firstNum:
+                negFlag = True
+                firstNum = True
+                continue
+            if str[i] == "+" and not firstNum:
+                negFlag = False
+                firstNum = True
+                continue
+            if not str[i].isnumeric() and not firstNum:
+                return 0
+            if not str[i].isnumeric() and firstNum:
+                break
+
+            if str[i].isnumeric():
+                # Then we can start interpreting
+                firstNum = True
+                resArr.append(str[i])
+
+        m = len(resArr)
+
+        for i in range(m):
+            resNum = resNum * 10 + int(resArr[i])
+
+        if negFlag:
+            resNum*=-1
+
+        if resNum > (1 << 31) - 1:
+            return (1 << 31) - 1
+        if resNum < (-1 << 31):
+            return (-1 << 31)
+
+        return resNum
+
     def strStr(self, haystack, needle):
         """
         :type haystack: str
         :type needle: str
         :rtype: int
         """
-        if not haystack or not needle:
+        if not needle:
             return 0
 
-        if needle not in haystack:
-            return -1
+        for i in range(len(haystack) - len(needle) + 1):
+            if haystack[i:i + len(needle)] == needle:
+                return i
 
-        # needle is in haystack
-        
+        return -1
+
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        if n == 1:
+            return "1"
+        if n == 2:
+            return "11"
+
+        print("this problem makes absolutely 0 sense")
