@@ -11,7 +11,25 @@ class StringSolutions:
         :type x: int
         :rtype: int
         """
-        return 0
+        negFlag = False
+        if x < 0:
+            x *= -1
+            negFlag = True
+
+        result = 0
+
+        while x > 0:
+            curr = x % 10
+            result = result * 10 + curr
+            x = x // 10
+
+            if result < -1 << 31 or result > (1 << 31) - 1:
+                return 0
+
+        if negFlag:
+            result*=-1
+
+        return result
 
     def firstUniqChar(self, s):
         """
@@ -79,4 +97,40 @@ class StringSolutions:
         :type s: str
         :rtype: bool
         """
-        return False
+        if not s:
+            return True
+
+        front = 0
+        end = len(s) - 1
+        s = s.lower()
+
+        while front <= end:
+            # Check for characters
+            while front <= end and not s[front].isalnum():
+                front+=1
+
+            while front <= end and not s[end].isalnum():
+                end-=1
+
+            # Both are charaters now
+            if front <= end and s[front] != s[end]:
+                return False
+            front+=1
+            end-=1
+
+        return True
+
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if not haystack or not needle:
+            return 0
+
+        if needle not in haystack:
+            return -1
+
+        # needle is in haystack
+        
