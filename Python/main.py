@@ -17,7 +17,9 @@ def main():
     # print(strSoln.isAnagram("rat", "art"))
     # print(strSoln.reverse(123))
     # print(strSoln.reverse(1534236469))
-    print(strSoln.isPalindrome("0P"))
+    # print(strSoln.isPalindrome("0P"))
+    # print(strSoln.strStr("a","a"))
+    print(strSoln.myAtoi("+0 123"))
 
     # fib = Fib(10)
     # print(fib.getFib(25))
