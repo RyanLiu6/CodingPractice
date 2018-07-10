@@ -192,4 +192,44 @@ class StringSolutions:
         if n == 2:
             return "11"
 
-        print("this problem makes absolutely 0 sense")
+        resStr = ""
+        prevStr = self.countAndSay(n - 1)
+        n = len(prevStr)
+        currLet = prevStr[0]
+        count = 1
+
+        for i in range(1, n):
+            if prevStr[i] == currLet:
+                count+=1
+            else:
+                resStr+=(str(count))
+                resStr+=(currLet)
+                currLet = prevStr[i]
+                count = 1
+
+        # Check if last few nums are same
+        if count > 0:
+            resStr+=(str(count))
+            resStr+=(currLet)
+
+        return resStr
+
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        :input: ["flower","flow","flight"]
+        :output: "fl"
+        """
+        if not strs:
+            return ""
+
+        shortestStr = min(strs, key=len)
+        n = len(shortestStr)
+
+        for i in range(n):
+            for str in strs:
+                if str[i] != shortestStr[i]:
+                    return shortestStr[:i]
+
+        return shortest
