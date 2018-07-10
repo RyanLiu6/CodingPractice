@@ -19,7 +19,10 @@ def main():
     # print(strSoln.reverse(1534236469))
     # print(strSoln.isPalindrome("0P"))
     # print(strSoln.strStr("a","a"))
-    print(strSoln.myAtoi("+0 123"))
+    # print(strSoln.myAtoi("+0 123"))
+    # print(strSoln.countAndSay(3))
+    # print(strSoln.longestCommonPrefix(["flower","flow","flight"]))
+    print((2-1)//2)
 
     # fib = Fib(10)
     # print(fib.getFib(25))
