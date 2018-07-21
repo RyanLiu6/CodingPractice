@@ -1,5 +1,6 @@
 from collections import deque
 
+
 class TreeNode(object):
     def __init__(self, x):
         self.val = x
@@ -84,6 +85,26 @@ class ConcluSolutions:
             return node
 
         return InPreHelper(0, len(inOrder) - 1, 0, len(preOrder) - 1)
+
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        if not root or root == p or root == q:
+            return root
+
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right = self.lowestCommonAncestor(root.right, p, q)
+
+        if not left:
+            return right
+        elif not right:
+            return left
+        else:
+            return root
 
     def serialize(self, root):
         """
