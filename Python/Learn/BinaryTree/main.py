@@ -6,24 +6,27 @@ def main():
     traSoln = TraverseSolutions()
     conSoln = ConcluSolutions()
 
-    # test = TreeNode(1)
-    # test.left = TreeNode(2)
-    # test.right = TreeNode(3)
-    # test.right.left = TreeNode(4)
-    # test.right.right = TreeNode(5)
-    #
+    test = TreeNode(1)
+    test.left = TreeNode(2)
+    test.right = TreeNode(3)
+    test.left.right = TreeNode(4)
+
+    # test = TreeNode(3)
+    # test.left = TreeNode(5)
+    # test.right = TreeNode(1)
+    # test.left.left = TreeNode(6)
+    # test.left.right = TreeNode(2)
+    # test.left.right.left = TreeNode(7)
+    # test.left.right.right = TreeNode(4)
+    # test.right.left = TreeNode(0)
+    # test.right.right = TreeNode(8)
+
     # res = conSoln.deserialize(conSoln.serialize(test))
     #
     # print(traSoln.levelOrder(res))
     # print(traSoln.levelOrder(test))
 
-    inorder = [9,3,15,20,7]
-    postorder = [9,15,7,20,3]
-
-    conSoln.buildTree(inorder, postorder)
-
-    conSoln.buildTree([], [])
-
+    print(conSoln.lowestCommonAncestor(test, test.left.right, test.right).val)
 
 if __name__ == "__main__":
     main()
