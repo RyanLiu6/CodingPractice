@@ -232,4 +232,4 @@ class StringSolutions:
                 if str[i] != shortestStr[i]:
                     return shortestStr[:i]
 
-        return shortest
+        return shortestStr
