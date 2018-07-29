@@ -11,69 +11,47 @@ class TwoDSolution:
         ]
         Output:  [1,2,4,7,5,3,6,8,9]
         """
-        row = len(matrix)
-        col = len(matrix[0])
         retList = []
-
-        for i in range(col):
-            for j in range(row):
-                retList.append(matrix[j][i])
-
-        print(retList)
+        if not matrix:
+            return retLst
 
     def spiralOrder(self, matrix):
         """
         :type matrix: List[List[int]]
         :rtype: List[int]
         """
-        row = len(matrix)
-        col = len(matrix[0])
         retList = []
+        if not matrix:
+            return retList
 
-        visited = [[False for _ in range(col)] for __ in range(row)]
+        rowStart = 0
+        rowEnd = len(matrix) - 1
+        colStart = 0
+        colEnd = len(matrix[0]) - 1
 
-        row -= 1
-        col -= 1
+        while rowStart <= rowEnd and colStart <= colEnd:
+            # Go right
+            for i in range(colStart, colEnd + 1):
+                retList.append(matrix[rowStart][i])
+            rowStart += 1
 
-        def spiralHelper(i, j, direction):
-            if direction == "right" and j <= col and not visited[i][j]:
-                retList.append(matrix[i][j])
-                visited[i][j] = True
-                print(direction)
-                print(i, j)
-                spiralHelper(i, j + 1, "right")
-            else:
-                spiralHelper(i + 1, j, "down")
+            # Go down
+            for i in range(rowStart, rowEnd + 1):
+                retList.append(matrix[i][colEnd])
+            colEnd -= 1
 
-            if direction == "down" and i <= row and not visited[i][j]:
-                retList.append(matrix[i][j])
-                print(direction)
-                print(i, j)
-                visited[i][j] = True
-                spiralHelper(i + 1, j, "down")
-            else:
-                spiralHelper(i, j - 1, "left")
+            # Go left
+            if rowStart <= rowEnd:
+                for i in range(colEnd, colStart - 1, -1):
+                    retList.append(matrix[rowEnd][i])
+            rowEnd -= 1
 
-            if direction == "left" and j >= -1 and not visited[i][j]:
-                retList.append(matrix[i][j])
-                print(direction)
-                print(i, j)
-                visited[i][j] = True
-                spiralHelper(i, j - 1, "left")
-            else:
-                spiralHelper(i - 1, j, "up")
+            # Go Up
+            if colStart <= colEnd:
+                for i in range(rowEnd, rowStart - 1, -1):
+                    retList.append(matrix[i][colStart])
+            colStart += 1
 
-            if direction == "up" and i >= -1 and not visited[i][j]:
-                retList.append(matrix[i][j])
-                visited[i][j] = True
-                print(direction)
-                print(i, j)
-                spiralHelper(i - 1, j, "up")
-            else:
-                spiralHelper(i, j + 1, "right")
-
-        spiralHelper(0, 0, "right")
-        print(visited)
         return retList
 
     def generate(self, numRows):
