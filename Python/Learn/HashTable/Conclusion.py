@@ -47,6 +47,24 @@ class ConcluSolution:
         :type D: List[int]
         :rtype: int
         """
+        ABDict = {}
+        result = 0
+        n = len(A)
+        for i in range(n):
+            for j in range(n):
+                currSum = A[i] + B[j]
+                if currSum in ABDict:
+                    ABDict[currSum] += 1
+                else:
+                    ABDict[currSum] = 1
+
+         for i in range(n):
+            for j in range(n):
+                currSum = -(C[i] + D[j])
+                if currSum in ABDict:
+                    result += ABDict[currSum]
+                    
+         return result
 
     def topKFrequent(self, nums, k):
         """
