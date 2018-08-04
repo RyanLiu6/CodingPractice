@@ -89,20 +89,30 @@ class KeySolution:
         :type root: TreeNode
         :rtype: List[TreeNode]
         """
+
+    def findDuplicateSubtrees(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[TreeNode]
+        """
         treeDict = {}
-        retSet = set()
+        result = []
 
-        def dupHelper(root):
-            if not root:
-                return
+        def dupSubtreeHelper(node):
+            if not node:
+                return "#"
 
-            if root.val in treeDict:
-                retSet.add(root)
-            else:
-                treeDict[root.val] = 1
+            currStr = ""
+            currStr += str(node.val) + "|"
+            currStr += dupSubtreeHelper(node.left) + "|"
+            currStr += dupSubtreeHelper(node.right)
 
-            dupHelper(root.left)
-            dupHelper(root.right)
+            val = treeDict.get(currStr, 0)
+            if val == 1:
+                result.append(node)
+            treeDict[currStr] = val + 1
 
-        dupHelper(root)
-        return list(retSet)
+            return currStr
+
+        dupSubtreeHelper(root)
+        return result

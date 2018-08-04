@@ -30,6 +30,14 @@ class ConcluSolution:
         :type s: str
         :rtype: int
         """
+        n = len(s)
+        charDict = {}
+
+        front = 0
+        end = 0
+
+        while front <= end and end < n:
+            if not s[front]
 
     def fourSumCount(self, A, B, C, D):
         """
@@ -38,18 +46,6 @@ class ConcluSolution:
         :type C: List[int]
         :type D: List[int]
         :rtype: int
-        Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l) there are such that A[i] + B[j] + C[k] + D[l] is zero.
-        Input:
-        A = [ 1, 2]
-        B = [-2,-1]
-        C = [-1, 2]
-        D = [ 0, 2]
-
-        Output:
-        2
-
-        1. (0, 0, 0, 1) -> A[0] + B[0] + C[0] + D[1] = 1 + (-2) + (-1) + 2 = 0
-        2. (1, 1, 0, 0) -> A[1] + B[1] + C[0] + D[0] = 2 + (-1) + (-1) + 0 = 0
         """
 
     def topKFrequent(self, nums, k):
