@@ -25,19 +25,51 @@ class ConcluSolution:
 
         return count
 
-    def lengthOfLongestSubstring(self, s):
+    def lengthOfLongestSubstring1(self, s):
         """
         :type s: str
         :rtype: int
         """
         n = len(s)
+        self.currMaxStr = 0
+        DP = [[False for _ in range(n)] for _ in range(n)]
+
+        def subStr():
+            for i in range(n):
+                for j in range(n):
+                    if not DP[i][j] and i <= j:
+                        curr = s[i:j + 1]
+                        if self.isUnique(curr):
+                            self.currMaxStr = max(self.currMaxStr, len(curr))
+
+        subStr()
+        return self.currMaxStr
+
+    def isUnique(self, inputStr):
+        charMap = {}
+
+        for c in inputStr:
+            if c in charMap:
+                return False
+            else:
+                charMap[c] = 1
+
+        return True
+
+    def lengthOfLongestSubstring(self, s):
+        n = len(s)
         charDict = {}
+        currMax = 0
 
-        front = 0
         end = 0
+        for front in range(n):
+            curr = s[front]
+            if curr in charDict:
+                end = max(end, charDict[curr] + 1)
+            charDict[curr] = front
+            currMax = max(currMax, front - end + 1)
 
-        while front <= end and end < n:
-            if not s[front]
+        return currMax
 
     def fourSumCount(self, A, B, C, D):
         """
@@ -58,13 +90,13 @@ class ConcluSolution:
                 else:
                     ABDict[currSum] = 1
 
-         for i in range(n):
+        for i in range(n):
             for j in range(n):
                 currSum = -(C[i] + D[j])
                 if currSum in ABDict:
                     result += ABDict[currSum]
-                    
-         return result
+
+        return result
 
     def topKFrequent(self, nums, k):
         """
