@@ -1,5 +1,8 @@
 from ArraySolutions import *
 from StringSolutions import *
+from SortSearchSolutions import *
+from MathSolutions import *
+from OtherSolutions import *
 
 
 def main():
@@ -21,10 +24,18 @@ def main():
     # print(strSoln.countAndSay(3))
     # print(strSoln.longestCommonPrefix(["flower","flow","flight"]))
 
-    list = ["1","2","3"]
-    print(' '.join(list))
-    print(str("~"))
+    sortSoln = SortSearchSolutions()
+    # sortSoln.merge([1,2,4,5,6,0], 5, [3], 1)
+    # sortSoln.merge([4,5,6,0,0,0], 3, [1,2,3], 3)
+    # print(sortSoln.firstBadVersion(5))
 
+    mathSoln = MathSolutions()
+    # print(mathSoln.countPrimes(10))
+    # print(mathSoln.isPowerOfThree(27))
+    # print(mathSoln.romanToInt("IV"))
 
+    othSoln = OtherSolutions()
+    print(othSoln.hammingWeight(11))
+    print(othSoln.hammingWeight(128))
 if __name__ == "__main__":
     main()
