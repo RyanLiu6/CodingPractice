@@ -1,3 +1,10 @@
+def isBadVersion(version):
+    falseVersion = [4, 5]
+    if version in falseVersion:
+        return True
+    else:
+        return False
+
 class SortSearchSolutions:
     def merge(self, nums1, m, nums2, n):
         """
@@ -7,3 +14,39 @@ class SortSearchSolutions:
         :type n: int
         :rtype: void Do not return anything, modify nums1 in-place instead.
         """
+        while m > 0 and n > 0:
+            if nums1[m - 1] > nums2[n - 1]:
+                nums1[m + n - 1] = nums1[m - 1]
+                m -= 1
+            else:
+                nums1[m + n - 1] = nums2[n - 1]
+                n -= 1
+
+        while n > 0:
+            nums1[n - 1] = nums2[n - 1]
+            n -= 1
+
+        print(nums1)
+
+    def firstBadVersion(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        return self.searchVersion(0, n)
+
+    def searchVersion(self, front, back):
+        if front > back:
+            return -1
+        else:
+            mid = (front + back) // 2
+
+            curr = isBadVersion(mid)
+            prev = isBadVersion(mid - 1)
+
+            if curr and not prev:
+                return mid
+            elif curr and prev:
+                return self.searchVersion(front, mid - 1)
+            else:
+                return self.searchVersion(mid + 1, back)
