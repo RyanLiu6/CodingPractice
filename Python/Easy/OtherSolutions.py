@@ -44,6 +44,67 @@ class OtherSolutions:
         :type n: int
         :rtype: int
         """
+        # 32 bits
+        m = 32
+        retInt = 0
+        tempArr = []
+        for i in range(m):
+            tempArr.append(n & 1)
+            n = n >> 1
+
+        for i in range(m - 1, -1, -1):
+            retInt += tempArr[i]*(2**(m - i - 1))
+
+        return retInt
+
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        Input: "()[]{}"
+        Output: true
+
+        Input: "([)]"
+        Output: false
+
+        Input: "{[]}"
+        Output: true
+        """
+        if not s:
+            return True
+
+        if len(s) % 2:
+            return False
+
+        left = self.prepLeft()
+        right = self.prepRight()
+        pStack = []
+
+        for c in s:
+            if c in left:
+                pStack.append(c)
+            if c in right:
+                head = pStack.pop()
+                if right[c] != head:
+                    return False
+
+        return True
+
+    def prepLeft(self):
+        dict = {}
+        dict["("] = ")"
+        dict["{"] = "}"
+        dict["["] = "]"
+
+        return dict
+
+    def prepRight(self):
+        dict = {}
+        dict[")"] = "("
+        dict["}"] = "{"
+        dict["]"] = "["
+
+        return dict
 
     def missingNumber(self, nums):
         """

@@ -3,6 +3,7 @@ from StringSolutions import *
 from SortSearchSolutions import *
 from MathSolutions import *
 from OtherSolutions import *
+from DynamicSolutions import *
 
 
 def main():
@@ -35,7 +36,20 @@ def main():
     # print(mathSoln.romanToInt("IV"))
 
     othSoln = OtherSolutions()
-    print(othSoln.hammingWeight(11))
-    print(othSoln.hammingWeight(128))
+    # print(othSoln.hammingWeight(11))
+    # print(othSoln.hammingWeight(128))
+    # print(othSoln.reverseBits(43261596))
+    # print(othSoln.isValid("()"))
+    # print(othSoln.isValid("([)]"))
+
+    dpSoln = DPSolutions()
+    # print(dpSoln.climbStairs(2))
+    # print(dpSoln.climbStairs(3))
+    # print(dpSoln.maxProfit([7,1,5,3,6,4]))
+    # print(dpSoln.maxProfit([2,4,1]))
+    # print(dpSoln.maxSubArray([-2,1,-3,4,-1,2,1,-5,4]))
+    # print(dpSoln.maxSubArray([-2,1]))
+    print(dpSoln.rob([1,2,3,1]))
+
 if __name__ == "__main__":
     main()
