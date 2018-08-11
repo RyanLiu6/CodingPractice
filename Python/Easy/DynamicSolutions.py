@@ -58,22 +58,22 @@ class DPSolutions:
         Output: 6
         Explanation: [4,-1,2,1] has the largest sum = 6.
         """
-        largestSum = -1 << 31
+        if not nums:
+            return 0
 
-        n = len(nums)
-        front = back = 0
+        maxSum = nums[0]
+        currSum = 0
+        print(nums)
 
-        while (front <= back and back < n):
-            curr = sum(nums[front:back + 1])
-            print(curr)
-            if curr > largestSum:
-                largestSum = curr
-            else:
-                front += 1
+        for num in nums:
+            currSum += num
+            print(currSum, end=", ")
+            maxSum = max(maxSum, currSum)
+            print(maxSum, end=", ")
+            currSum = max(currSum, 0)
+            print(currSum)
 
-            back += 1
-
-        return largestSum
+        return maxSum
 
     def rob(self, nums):
         """
@@ -84,6 +84,20 @@ class DPSolutions:
         Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
              Total amount you can rob = 1 + 3 = 4.
         """
-        total = 0
+        # With space
+        n = len(nums)
+        if not nums:
+            return 0
+        if n < 2:
+            return nums[0]
 
-        return total
+        robList = []
+        robList.append(nums[0])
+        robList.append(max(nums[0], nums[1]))
+
+        for i in range(2, n):
+            robList.append(max(robList[i - 2] + nums[i], robList[i - 1]))
+
+        return robList[n - 1]
+
+        # Without space
