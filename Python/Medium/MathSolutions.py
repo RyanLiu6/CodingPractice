@@ -26,6 +26,19 @@ class MathSolutions:
         :rtype: int
         Time complexity must be O(logn)
         """
+        count = 0
+        factor = 5
+
+        while n / factor >= 1:
+            count += (n // factor)
+            factor *= 5
+
+        return count
+
+        # Recursive
+        if n < 5:
+            return 0
+        return n//5 + self.trailingZeroes(n // 5)
 
     def titleToNumber(self, s):
         """
@@ -76,4 +89,4 @@ class MathSolutions:
         if numerator < 0 ^ denominator < 0:
             retStr += "-"
         numerator = abs(numerator)
-        denominator = abs(denominator) 
+        denominator = abs(denominator)
