@@ -24,11 +24,3 @@ arrSoln = ArrStrSolutions()
 # bSolns = BackSolutions()
 # print(bSolns.letterCombinations("23"))
 # print(bSolns.subsets([1,2,3]))
-
-
-mSoln = MathSolutions()
-top = 2
-bot = 3
-print(int(top/bot))
-top %= 3
-print(top)
