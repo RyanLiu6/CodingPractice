@@ -49,7 +49,15 @@ class MathSolutions:
         if not s:
             return retInt
 
-        base = ord("A")
+        n = len(s)
+
+        base = ord("A") - 1
+
+        for i in range(n):
+            shift = ord(s[i]) - base
+            retInt += shift*(26**(n - i - 1))
+
+        return retInt
 
     def myPow(self, x, n):
         """
@@ -57,23 +65,62 @@ class MathSolutions:
         :type n: int
         :rtype: float
         """
-        answer = 1
-        negative = False
-
         if n == 0:
-            return answer
+            return 1
         if n < 0:
-            negative = True
-            n *= -1
+            return 1 / self.myPow(x, -n)
+        if n % 2 == 0:
+            return self.myPow(x*x, n / 2)
+        else:
+            return x*self.myPow(x*x, n // 2)
 
-        answer = x
-        for i in range(1, n):
-            answer *= x
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        curr = x
+        while curr * curr > x:
+            curr = (curr + x / curr) // 2
+        return int(curr)
 
-        if negative:
-            answer = 1 / answer
+    def divide(self, dividend, divisor):
+        """
+        :type dividend: int
+        :type divisor: int
+        :rtype: int
+        """
+        result = 0
+        topChanged = False
 
-        return answer
+        if dividend > 0:
+            top = dividend
+        else:
+            topChanged = True
+            top = -dividend
+
+        if divisor > 0:
+            bot = divisor
+        else:
+            bot = -divisor
+
+        while top >= bot:
+            top -= bot
+            result += 1
+
+        print("Result: ", str(result))
+        print("Top: ", str(top))
+        print("Bot: ", str(bot))
+
+        if topChanged and bot != divisor:
+            # both were different and thus two negatives
+            return result
+        elif topChanged and bot == divisor:
+            return -result
+        elif not topChanged and bot != divisor:
+            return -result
+        else:
+            return result
 
     def fractionToDecimal(self, numerator, denominator):
         """
