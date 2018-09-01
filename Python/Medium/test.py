@@ -3,6 +3,9 @@ from TreeGraphSolutions import *
 from BackTrackSolutions import *
 from MathSolutions import *
 from SortSearchSolutions import *
+from OtherSolutions import *
+from DPSolutions import *
+import collections
 
 
 # arrSoln = ArrStrSolutions()
@@ -22,10 +25,21 @@ from SortSearchSolutions import *
 # treeSoln = TreeGraphSolutions()
 # print(treeSoln.zigzagLevelOrder(test))
 
-arr = [2,0,2,1,1,0]
-sSoln = SortSearchSolutions()
-sSoln.sortColors(arr)
-print(arr)
+# arr = [2,0,2,1,1,0]
+# sSoln = SortSearchSolutions()
+# sSoln.sortColors(arr)
+# print(arr)
+# print(sSoln.searchRange([5,7,7,8,8,10], 8))
+# print(sSoln.searchRange([1], 1))
+# print(sSoln.search([4,5,6,7,0,1,2], 0))
+
+# matrix = [
+#   [1,   4,  7],
+#   [2,   5,  8],
+#   [3,   6,  9]
+# ]
+#
+# print(sSoln.searchMatrix(matrix, 5))
 
 # bSolns = BackSolutions()
 # print(bSolns.letterCombinations("23"))
@@ -39,3 +53,17 @@ print(arr)
 # print(mSoln.divide(10, 3))
 # print(mSoln.divide(7, -3))
 # print(mSoln.divide(-1, 1))
+
+# oSoln = OtherSolutions()
+# print(oSoln.evalRPN(["4", "13", "5", "/", "+"]))
+# print(oSoln.evalRPN(["10","6","9","3","+","-11","*","/","*","17","+","5","+"]))
+# print(oSoln.majorityElement([2,2,1,1,1,2,2]))
+
+dpSoln = DPSolutions()
+print(dpSoln.canJump([2,3,1,1,4]))
+print(dpSoln.canJump([3,2,1,0,4]))
+# print(dpSoln.uniquePaths(3, 2))
+# print(dpSoln.uniquePaths(7, 3)
+# print(dpSoln.coinChange([1,2,5], 11))
+# print(dpSoln.coinChange([186,419,83,408], 6249))
+# print(dpSoln.lengthOfLIS([10,9,2,5,3,7,101,18]))
