@@ -73,9 +73,6 @@ class OtherSolutions:
         if not s:
             return True
 
-        if len(s) % 2:
-            return False
-
         left = self.prepLeft()
         right = self.prepRight()
         pStack = []
@@ -84,11 +81,13 @@ class OtherSolutions:
             if c in left:
                 pStack.append(c)
             if c in right:
+                if len(pStack) == 0:
+                    return False
                 head = pStack.pop()
                 if right[c] != head:
                     return False
 
-        return True
+        return len(pStack) == 0
 
     def prepLeft(self):
         dict = {}
