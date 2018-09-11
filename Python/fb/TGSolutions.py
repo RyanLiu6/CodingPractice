@@ -59,15 +59,24 @@ class TGSolutions:
         :type root: TreeNode
         :rtype: int
         """
-        left = self.lengthOfTree(root, True)
-        right = self.lengthOfTree(root, False)
+        self.diam = 0
+        self.depthOfTree(root)
 
-        return left + right
+        return self.diam
 
-    def lengthOfTree(self, root, left):
+    def depthOfTree(self, root):
         if not root:
             return 0
-        if left:
-            return 1 + self.lengthOfTree(root.left, left)
-        else:
-            return 1 + self.lengthOfTree(root.right, left)
+
+        left = self.depthOfTree(root.left)
+        right = self.depthOfTree(root.right)
+
+        self.diam = max(self.diam, left + right)
+        return 1 + max(left, right)
+
+    def verticalOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        

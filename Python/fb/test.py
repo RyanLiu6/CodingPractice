@@ -1,5 +1,6 @@
 from ArrStrSolutions import *
 from LLSolutions import *
+from BackSolutions import *
 
 
 aSoln = ArrStrSolutions()
@@ -13,3 +14,6 @@ test.left = TreeNode(2)
 test.right = TreeNode(5)
 lSoln = LLSolutions()
 lSoln.flatten(test)
+
+bSoln = BackSolutions()
+print(bSoln.permuteUnique([1,1,2]))

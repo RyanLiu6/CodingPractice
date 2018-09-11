@@ -41,9 +41,9 @@ import collections
 #
 # print(sSoln.searchMatrix(matrix, 5))
 
-# bSolns = BackSolutions()
+bSolns = BackSolutions()
 # print(bSolns.letterCombinations("23"))
-# print(bSolns.subsets([1,2,3]))
+print(bSolns.subsets(["g", "a", "f", "t"]))
 
 # mSoln = MathSolutions()
 # print(mSoln.myPow(2.100, 3))
