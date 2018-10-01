@@ -79,4 +79,38 @@ class TGSolutions:
         :type root: TreeNode
         :rtype: List[List[int]]
         """
-        
+        retArr = []
+
+        bucket = {}
+        queue = []
+        col = []
+
+        if not root:
+            return retArr
+
+        queue.append(root)
+        col.append(0)
+
+        self.voHelper(bucket, queue, col, [])
+
+        return
+
+    def voHelper(self, bucket, queue, cols, size):
+        while queue:
+            node = queue.pop(0)
+            curr = cols.pop(0)
+
+            if not curr in bucket:
+                bucket[curr] = []
+
+            bucket[curr].append(node.val)
+
+            if node.left:
+                queue.append(node.left)
+                cols.append(curr - 1)
+                size[0] = min(size[0], curr - 1)
+
+            if node.right:
+                queue.append(node.right)
+                cols.append(curr + 1)
+                size[1] = max(size[1], curr + 1)

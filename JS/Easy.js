@@ -98,3 +98,41 @@ var convertHelper = function(root) {
     root.val = total
     convertHelper(root.left)
 }
+
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+var getSum = function(a, b) {
+    // 1 = 0b001
+    // +
+    // 2 = 0b010
+    // =
+    // 3 = 0b011
+
+    var baseA = a.toString(2);
+    var baseB = b.toString(2);
+    var retArr = []
+
+
+};
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function(nums, target) {
+    if (nums == null or nums.length == 0) {
+        return 0;
+    }
+
+    for (var i = 0; i < nums.length; i++) {
+        if (nums[i] >= target) {
+            return i
+        }
+    }
+
+    return nums.length
+};
