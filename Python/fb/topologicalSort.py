@@ -82,10 +82,29 @@ class tsSolution:
         :type words: List[str]
         :rtype: str
         """
+        edge = self.createEdgeList(words)
+        graph = self.createGraph1(edge)
+        print(graph)
 
-
-    def createGraph_Words(self, words):
-        graph = {}
+    def createEdgeList(self, words):
+        edge = []
 
         for word in words:
-            for c in word:
+            for i in range(len(word) - 1):
+                curr = [word[i + 1], word[i]]
+                edge.append(curr)
+
+        return edge
+
+    def createGraph1(self, nums):
+        """
+        type nums: List[List[int or str]]
+        """
+        graph = {}
+
+        for x, y in nums:
+            if not y in graph:
+                graph[y] = set()
+            graph[y].add(x)
+
+        return graph

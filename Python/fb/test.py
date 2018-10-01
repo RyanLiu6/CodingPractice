@@ -21,4 +21,4 @@ aSoln = ArrStrSolutions()
 
 tsSoln = tsSolution()
 print(tsSoln.canFinish(2, [[1,0]]))
-# print(tsSoln.canFinish(2, [[0,1],[1,0]]))
+tsSoln.alienOrder(["wrt", "wrf", "er", "ett", "rftt"])
