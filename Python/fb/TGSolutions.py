@@ -5,6 +5,19 @@ class TreeNode:
         self.left = None
         self.right = None
 
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left, right):
+        self.val = val
+        self.left = left
+        self.right = right
+
+class UndirectedGraphNode:
+    def __init__(self, x):
+        self.label = x
+        self.neighbors = []
+
+
 class TGSolutions:
     def isSameTree(self, p, q):
         """
@@ -81,21 +94,27 @@ class TGSolutions:
         """
         retArr = []
 
-        bucket = {}
-        queue = []
-        col = []
-
         if not root:
             return retArr
 
+        self.min = 0
+        self.max = 0
+
+        bucket = {}
+        queue = []
+        cols = []
+
         queue.append(root)
-        col.append(0)
+        cols.append(0)
 
-        self.voHelper(bucket, queue, col, [])
+        self.voHelper(bucket, queue, cols)
 
-        return
+        for i in range(self.min, self.max + 1):
+            retArr.append(bucket[i])
 
-    def voHelper(self, bucket, queue, cols, size):
+        return retArr
+
+    def voHelper(self, bucket, queue, cols):
         while queue:
             node = queue.pop(0)
             curr = cols.pop(0)
@@ -108,9 +127,90 @@ class TGSolutions:
             if node.left:
                 queue.append(node.left)
                 cols.append(curr - 1)
-                size[0] = min(size[0], curr - 1)
+                self.min = min(self.min, curr - 1)
 
             if node.right:
                 queue.append(node.right)
                 cols.append(curr + 1)
-                size[1] = max(size[1], curr + 1)
+                self.max = max(self.max, curr + 1)
+
+    def buildTree(self, preOrder, inOrder):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: TreeNode
+        """
+        inDict = {}
+
+        for i in range(len(inOrder)):
+            inDict[inOrder[i]] = i
+
+        def InPreHelper(inStart, inEnd, preStart, preEnd):
+            if inStart > inEnd or preStart > preEnd:
+                return None
+
+            data = preOrder[preStart]
+            pos = inDict[data]
+
+            node = TreeNode(data)
+
+            node.left = InPreHelper(inStart, pos - 1, preStart + 1, preStart + 1 + (pos - 1 - inStart))
+            node.right = InPreHelper(pos + 1, inEnd, preStart + 1 + (pos - inStart), preEnd)
+
+            return node
+
+        return InPreHelper(0, len(inOrder) - 1, 0, len(preOrder) - 1)
+
+    def treeToDoublyList(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        if not root:
+            return None
+
+        dummy = Node(0, None, None)
+        self.prev = dummy
+
+        self.doubleHelper(root)
+
+        # Connect head and tail
+        self.prev.right = dummy.right
+        dummy.right.left = self.prev
+
+        return dummy.right
+
+    def doubleHelper(self, root):
+        if not root:
+            return
+
+        self.doubleHelper(root.left)
+
+        self.prev.right = root
+        root.left = self.prev
+        self.prev = root
+
+        self.doubleHelper(root.right)
+
+    def cloneGraph(self, node):
+        """
+        :type root: UndirectedGraphNode
+        :rtype: UndirectedGraphNode
+        """
+        self.nodeDict = {}
+        return self.cloneHelper(node)
+
+    def cloneHelper(self, root):
+        if not root:
+            return None
+
+        if root.label in self.nodeDict:
+            return self.nodeDict[root.label]
+
+        clone = UndirectedGraphNode(root.label)
+        self.nodeDict[clone.label] = clone
+
+        for neighbour in root.neighbors:
+            clone.neighbors.append(self.cloneHelper(neighbour))
+
+        return clone
