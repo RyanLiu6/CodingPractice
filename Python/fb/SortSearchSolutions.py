@@ -1,19 +1,31 @@
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
 class Solution:
-    def maxProfit(self, prices):
+    def mergeKLists(self, lists):
         """
-        :type prices: List[int]
-        :rtype: int
+        :type lists: List[ListNode]
+        :rtype: ListNode
         """
-        # Buy and then sell
-        if not prices:
-            return 0
+        if not lists:
+            return None
 
-        buy = prices[0]
-        profit = 0
+        queue = []
 
-        for price in prices:
-            buy = min(buy, price)
-            currP = price - buy
-            profit = max(profit, currP)
+        dummy = ListNode(0)
+        curr = dummy
 
-        return profit
+        for node in lists:
+            heapq.heappush(queue, (node.val, node))
+
+        while queue:
+            node = heapq.heappop(queue)
+            curr.next = node[1]
+            curr = curr.next
+
+            if curr.next:
+                heapq.heappush(queue, (curr.val, curr.next))
+
+        return dummy.next

@@ -2,7 +2,12 @@ from ArrStrSolutions import *
 from LLSolutions import *
 from BackSolutions import *
 from topologicalSort import *
+import heapq
 
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 aSoln = ArrStrSolutions()
 # print(aSoln.validPalindromeII("abcdca"))
@@ -19,6 +24,12 @@ aSoln = ArrStrSolutions()
 # bSoln = BackSolutions()
 # print(bSoln.permuteUnique([1,1,2]))
 
-tsSoln = tsSolution()
-print(tsSoln.canFinish(2, [[1,0]]))
-tsSoln.alienOrder(["wrt", "wrf", "er", "ett", "rftt"])
+# tsSoln = tsSolution()
+# print(tsSoln.canFinish(2, [[1,0]]))
+# tsSoln.alienOrder(["wrt", "wrf", "er", "ett", "rftt"])
+
+h = []
+heapq.heappush(h, (1, ListNode(1)))
+heapq.heappush(h, (1, ListNode(1)))
+heapq.heappush(h, (2, ListNode(2)))
+print(heapq.heappop(h))
