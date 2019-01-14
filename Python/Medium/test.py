@@ -5,6 +5,7 @@ from MathSolutions import *
 from SortSearchSolutions import *
 from OtherSolutions import *
 from DPSolutions import *
+from MiscSolutions import *
 import collections
 
 
@@ -41,9 +42,9 @@ import collections
 #
 # print(sSoln.searchMatrix(matrix, 5))
 
-bSolns = BackSolutions()
+# bSolns = BackSolutions()
 # print(bSolns.letterCombinations("23"))
-print(bSolns.subsets(["g", "a", "f", "t"]))
+# print(bSolns.subsets(["g", "a", "f", "t"]))
 
 # mSoln = MathSolutions()
 # print(mSoln.myPow(2.100, 3))
@@ -59,11 +60,20 @@ print(bSolns.subsets(["g", "a", "f", "t"]))
 # print(oSoln.evalRPN(["10","6","9","3","+","-11","*","/","*","17","+","5","+"]))
 # print(oSoln.majorityElement([2,2,1,1,1,2,2]))
 
-dpSoln = DPSolutions()
-print(dpSoln.canJump([2,3,1,1,4]))
-print(dpSoln.canJump([3,2,1,0,4]))
+# dpSoln = DPSolutions()
+# print(dpSoln.canJump([2,3,1,1,4]))
+# print(dpSoln.canJump([3,2,1,0,4]))
 # print(dpSoln.uniquePaths(3, 2))
 # print(dpSoln.uniquePaths(7, 3)
 # print(dpSoln.coinChange([1,2,5], 11))
 # print(dpSoln.coinChange([186,419,83,408], 6249))
 # print(dpSoln.lengthOfLIS([10,9,2,5,3,7,101,18]))
+
+miscSoln = MiscSolutions()
+testTree = TreeNode(10)
+testTree.left = TreeNode(5)
+testTree.right = TreeNode(15)
+testTree.left.left = TreeNode(3)
+testTree.left.right = TreeNode(7)
+testTree.right.right = TreeNode(18)
+# print(miscSoln.rangeSumBST(testTree, 7, 15))

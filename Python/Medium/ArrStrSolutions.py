@@ -90,7 +90,7 @@ class ArrStrSolutions:
         n = len(s)
         self.maxLen = 0
         self.maxPalin = ""
-        
+
         DP = [[-1 for x in range(n)] for y in range(n)]
 
         for i in range(n):
@@ -105,25 +105,41 @@ class ArrStrSolutions:
 
         return self.maxPalin
 
-        # Sliding Window technique
+        # Sliding approach
+        if not s:
+            return ""
+
         n = len(s)
-        currLen = 0
-        maxPalin = ""
+        if n == 1:
+            return s
+
+        minStart, maxLen = 0, 1
+
+        for i in range(n):
+            if (n - i <= maxLen // 2):
+                break;
+
+            j, k = i, i
+
+            while k < n - 1 and s[k + 1] == s[k]:
+                k += 1
+
+            i = k + 1
+
+            while k < n - 1 and j > 0 and s[k + 1] == s[j - 1]:
+                k += 1
+                j -= 1
+
+            newLen = k - j + 1
+
+            if newLen > maxLen:
+                minStart = j
+                maxLen = newLen
+
+        return s[minStart:minStart + newLen]
 
     def isPalin(self, string):
         return string[::-1] == string
-
-    def isPalin(self, inputStr, start, end):
-        if end < start:
-            return False
-
-        while start < end:
-            if inputStr[start] != inputStr[end]:
-                return False
-            start += 1
-            end -= 1
-
-        return True
 
     def increasingTriplet(self, nums):
         """
