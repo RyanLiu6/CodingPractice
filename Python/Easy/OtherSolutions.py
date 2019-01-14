@@ -73,31 +73,19 @@ class OtherSolutions:
         if not s:
             return True
 
-        left = self.prepLeft()
-        right = self.prepRight()
+        pDict = self.prepPDict()
         pStack = []
 
         for c in s:
-            if c in left:
+            if c in pDict.values():
                 pStack.append(c)
-            if c in right:
-                if len(pStack) == 0:
-                    return False
-                head = pStack.pop()
-                if right[c] != head:
+            elif c in pDict:
+                if len(pStack) == 0 or pDict[c] != pStack.pop():
                     return False
 
         return len(pStack) == 0
 
-    def prepLeft(self):
-        dict = {}
-        dict["("] = ")"
-        dict["{"] = "}"
-        dict["["] = "]"
-
-        return dict
-
-    def prepRight(self):
+    def prepPDict(self):
         dict = {}
         dict[")"] = "("
         dict["}"] = "{"
