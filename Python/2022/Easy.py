@@ -44,3 +44,48 @@ class Solution:
 
         return forward == backward
 
+    def roman_to_int(self, s: str) -> int:
+        """
+        Leetcode Problem #13
+
+        Subtraction rules:
+        1. I before V and X for 4 and 9
+        2. X before L and C for 40 and 90
+        3. C before D and M for 400 and 900
+
+        Note: Roman numerals are always DESCENDING unless subtraction
+
+        Input: s = "MCMXCIV"
+        Output: 1994
+
+        M = 1000
+        CM = 900
+        XC = 90
+        IV = 4
+        """
+        roman_value = 0
+
+        if not s:
+            return roman_value
+
+        roman_dict = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+        }
+
+        previous = 0
+        for item in s:
+            current = roman_dict[item]
+            if current > previous:
+                roman_value += current - 2*previous
+            else:
+                roman_value += current
+
+            previous = current
+
+        return roman_value
