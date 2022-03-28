@@ -89,3 +89,28 @@ class Solution:
             previous = current
 
         return roman_value
+
+    def longest_common_prefix(self, strs: List[str]) -> str:
+        """
+        Input: strs = ["flower","flow","flight"]
+        Output: "fl"
+
+        Input: strs = ["dog","racecar","car"]
+        Output: ""
+        Explanation: There is no common prefix among the input strings.
+        """
+        if not strs:
+            return ""
+
+        """
+        We take our potential prefix, our seed, as the shortest string in the list.
+        This can be achieved via sorting first, or via the min function.
+        """
+        seed = min(strs, key=len)
+
+        for index, letter in enumerate(seed):
+            for word in strs:
+                if word[index] != letter:
+                    return seed[:index]
+
+        return seed
