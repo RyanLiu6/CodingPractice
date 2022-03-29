@@ -92,6 +92,8 @@ class Solution:
 
     def longest_common_prefix(self, strs: List[str]) -> str:
         """
+        Leetcode Problem #14
+
         Input: strs = ["flower","flow","flight"]
         Output: "fl"
 
@@ -114,3 +116,50 @@ class Solution:
                     return seed[:index]
 
         return seed
+
+    def is_valid(self, s: str) -> bool:
+        """
+        Leetcode Problem #20
+
+        Input: s = "()"
+        Output: true
+
+        Input: s = "(]"
+        Output: false
+        """
+        if not s:
+            return False
+
+        opening = {
+            "(": ")",
+            "[": "]",
+            "{": "}"
+        }
+
+        closing = {
+            ")": "(",
+            "]": "[",
+            "}": "{"
+        }
+
+        stack = []
+        for item in s:
+            if item in opening:
+                stack.append(item)
+            else:
+                # If it isn't opening, must be closing since string s can only contain opening or closing
+                try:
+                    matching = stack.pop()
+                except IndexError:
+                    return False
+                else:
+                    if closing[item] != matching:
+                        return False
+
+        if len(stack) != 0:
+            return False
+        else:
+            return True
+
+solution = Solution()
+print(solution.is_valid("()"))
