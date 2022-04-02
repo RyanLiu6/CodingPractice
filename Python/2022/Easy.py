@@ -243,13 +243,56 @@ class Solution:
             list2.next = self.merge_two_lists(list1, list2.next)
             return list2
 
+    def remove_element(self, nums: List[int], val: int) -> int:
+        """
+        Leetcode Problem #27
+
+        Given an integer array nums and an integer val, remove all occurrences of val in nums in-place.
+        The relative order of the elements may be changed.
+
+        Return k after placing the final result in the first k slots of nums.
+
+        Input: nums = [3,2,2,3], val = 3
+        Output: 2, nums = [2,2,_,_]
+
+        Input: nums = [0,1,2,2,3,0,4,2], val = 2
+        Output: 5, nums = [0,1,4,0,3,_,_,_]
+        Note that the first five elements can be returned in any order.
+        """
+        if not nums:
+            return 0
+
+        # Here, k is the both the count and index
+        k = 0
+        n = len(nums)
+        for i in range(n):
+            if nums[i] != val:
+                nums[k] = nums[i]
+                k += 1
+
+        return k
+
+
 solution = Solution()
 
-list1 = ListNode(1, next=ListNode(2, next=ListNode(4)))
-list2 = ListNode(1, next=ListNode(3, next=ListNode(4)))
+examples_27 = {
+    3: [3,2,2,3],
+    2: [0,1,2,2,3,0,4,2],
+    4: [2],
+    1: [1]
+}
 
-result = solution.merge_two_lists(list1, list2)
+for key, val in examples_27.items():
+    print("=================================")
+    k = solution.remove_element(val, key)
+    print(k, val[:k])
 
-while result.next:
-    print(result.val)
-    result = result.next
+
+# list1 = ListNode(1, next=ListNode(2, next=ListNode(4)))
+# list2 = ListNode(1, next=ListNode(3, next=ListNode(4)))
+
+# result = solution.merge_two_lists(list1, list2)
+
+# while result.next:
+#     print(result.val)
+#     result = result.next
