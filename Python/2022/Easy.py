@@ -243,6 +243,41 @@ class Solution:
             list2.next = self.merge_two_lists(list1, list2.next)
             return list2
 
+    def remove_duplicates(self, nums: List[int]) -> int:
+        """
+        Leetcode Problem #26
+
+        Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once.
+        The relative order of the elements should be kept the same.
+
+        Input: nums = [1,1,2]
+        Output: 2, nums = [1,2,_]
+
+        Input: nums = [0,0,1,1,1,2,2,3,3,4]
+        Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+
+        Steps:
+        1. Encounter unique -> index i
+        2. Find next unique -> index j
+        3. Swap index i + 1 with j
+        4. Repeat
+        """
+        if not nums:
+            return 0
+
+        # Here, k is both the count and index
+        k = 0
+        n = len(nums)
+        for i in range(n - 1):
+            if nums[i] != nums[i + 1]:
+                nums[k] = nums[i]
+                k += 1
+
+        # At this point, we know that nums[n - 2] != nums[n - 1], and therefore nums[n - 1] is another unique
+        nums[k] = nums[n - 1]
+
+        return k + 1
+
     def remove_element(self, nums: List[int], val: int) -> int:
         """
         Leetcode Problem #27
@@ -262,7 +297,7 @@ class Solution:
         if not nums:
             return 0
 
-        # Here, k is the both the count and index
+        # Here, k is both the count and index
         k = 0
         n = len(nums)
         for i in range(n):
@@ -275,6 +310,20 @@ class Solution:
 
 solution = Solution()
 
+
+examples_26 = [
+    [1,1,2],
+    [0,0,0,1,1],
+    [0,0,1,1,1,2,2,3,3,4]
+]
+
+for item in examples_26:
+    print("=================================")
+    k = solution.remove_duplicates(item)
+    print("Solution: ")
+    print(k, item[:k])
+
+
 examples_27 = {
     3: [3,2,2,3],
     2: [0,1,2,2,3,0,4,2],
@@ -286,7 +335,6 @@ for key, val in examples_27.items():
     print("=================================")
     k = solution.remove_element(val, key)
     print(k, val[:k])
-
 
 # list1 = ListNode(1, next=ListNode(2, next=ListNode(4)))
 # list2 = ListNode(1, next=ListNode(3, next=ListNode(4)))
