@@ -1,3 +1,4 @@
+from re import M
 from typing import List, Optional
 
 
@@ -308,33 +309,73 @@ class Solution:
         return k
 
 
+    def str_str(self, haystack: str, needle: str) -> int:
+        """
+        Leetcode Problem #28
+
+        Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+        Input: haystack = "hello", needle = "ll"
+        Output: 2
+
+        Input: haystack = "aaaaa", needle = "bba"
+        Output: -1
+        """
+        # Simplistic solution that isn't accepted
+        if needle in haystack:
+            return haystack.index(needle)
+        else:
+            return -1
+
+        # Actual solution
+        if not needle:
+            return -1
+
+        n = len(needle)
+        m = len(haystack)
+        for i in range(m - n + 1):
+            if haystack[i:i + n] == needle:
+                return i
+
+        return -1
+
+
 solution = Solution()
 
+# examples_26 = [
+#     [1,1,2],
+#     [0,0,0,1,1],
+#     [0,0,1,1,1,2,2,3,3,4]
+# ]
 
-examples_26 = [
-    [1,1,2],
-    [0,0,0,1,1],
-    [0,0,1,1,1,2,2,3,3,4]
-]
-
-for item in examples_26:
-    print("=================================")
-    k = solution.remove_duplicates(item)
-    print("Solution: ")
-    print(k, item[:k])
+# for item in examples_26:
+#     print("=================================")
+#     k = solution.remove_duplicates(item)
+#     print("Solution: ")
+#     print(k, item[:k])
 
 
-examples_27 = {
-    3: [3,2,2,3],
-    2: [0,1,2,2,3,0,4,2],
-    4: [2],
-    1: [1]
+# examples_27 = {
+#     3: [3,2,2,3],
+#     2: [0,1,2,2,3,0,4,2],
+#     4: [2],
+#     1: [1]
+# }
+
+# for key, val in examples_27.items():
+#     print("=================================")
+#     k = solution.remove_element(val, key)
+#     print(k, val[:k])
+
+examples_28 = {
+    "hello": "ll",
+    "aaaaa": "bba",
+    "a": "a",
 }
 
-for key, val in examples_27.items():
+for key, val in examples_28.items():
     print("=================================")
-    k = solution.remove_element(val, key)
-    print(k, val[:k])
+    print(solution.str_str(key, val))
 
 # list1 = ListNode(1, next=ListNode(2, next=ListNode(4)))
 # list2 = ListNode(1, next=ListNode(3, next=ListNode(4)))
