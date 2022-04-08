@@ -392,6 +392,7 @@ class Solution:
     def max_sub_array(self, nums: List[int]) -> int:
         """
         Leetcode Problem #53
+
         Given an integer array nums, find the contiguous subarray (containing at least one number)
         which has the largest sum and return its sum.
 
@@ -419,6 +420,18 @@ class Solution:
             max_sum = max(max_sum, curr_sum)
 
         return max_sum
+
+    def length_of_last_word(self, s: str) -> int:
+        """
+        Leetcode Problem #58
+
+        Given a string s consisting of some words separated by some number of spaces,
+        return the length of the last word in the string.
+
+        A word is a maximal substring consisting of non-space characters only.
+        """
+        words = s.strip().split()
+        return len(words[-1])
 
 
 solution = Solution()
