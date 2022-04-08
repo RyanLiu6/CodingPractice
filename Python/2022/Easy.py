@@ -433,6 +433,55 @@ class Solution:
         words = s.strip().split()
         return len(words[-1])
 
+    def plus_one(self, digits: List[int]) -> List[int]:
+        """
+        Leetcode Problem #66
+
+        You are given a large integer represented as an integer array digits,
+        where each digits[i] is the ith digit of the integer.
+
+        The digits are ordered from most significant to least significant in left-to-right order.
+        The large integer does not contain any leading 0's.
+
+        Increment the large integer by one and return the resulting array of digits.
+
+        Input: digits = [1,2,3]
+        Output: [1,2,4]
+
+        Input: digits = [4,3,2,1]
+        Output: [4,3,2,2]
+
+        Input: digits = [9]
+        Output: [1,0]
+        """
+        if not digits:
+            return digits
+
+        nums = []
+        carry = False
+        n = len(digits)
+
+        for i in range(n):
+            val = digits[n - i - 1]
+
+            if i == 0:
+                carry = True
+
+            if carry:
+                val += 1
+                if val > 9:
+                    val %= 10
+                    carry = True
+                else:
+                    carry = False
+
+            nums.append(val)
+
+        if carry:
+            nums.append(1)
+
+        return nums[::-1]
+
 
 solution = Solution()
 
@@ -471,16 +520,16 @@ solution = Solution()
 #     print("=================================")
 #     print(solution.str_str(key, val))
 
-examples_35 = {
-    2: [1,3,5,6],
-    # 5: [1,3,5,6],
-    # 7: [1,3,5,6],
-    # 4: [1,3,5]
-}
+# examples_35 = {
+#     2: [1,3,5,6],
+#     5: [1,3,5,6],
+#     7: [1,3,5,6],
+#     4: [1,3,5]
+# }
 
-for key, val in examples_35.items():
-    print("=================================")
-    print(solution.search_insert(val, key))
+# for key, val in examples_35.items():
+#     print("=================================")
+#     print(solution.search_insert(val, key))
 
 # examples_53 = [
 #     [-2,1,-3,4,-1,2,1,-5,4],
@@ -490,6 +539,16 @@ for key, val in examples_35.items():
 
 # for item in examples_53:
 #     print(solution.max_sub_array(nums=item))
+
+examples_66 = [
+    [1,2,3],
+    [4,3,2,1],
+    [9]
+]
+
+for item in examples_66:
+    print("=================================")
+    print(solution.plus_one(item))
 
 # list1 = ListNode(1, next=ListNode(2, next=ListNode(4)))
 # list2 = ListNode(1, next=ListNode(3, next=ListNode(4)))
