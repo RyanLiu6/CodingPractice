@@ -1,3 +1,5 @@
+from calendar import c
+from re import I
 import sys
 
 from typing import List, Optional
@@ -482,6 +484,127 @@ class Solution:
 
         return nums[::-1]
 
+        # Better solution
+        n = len(digits)
+        carry = 1
+        for i in range(n - 1, -1, -1):
+            curr = digits[i] + carry
+            carry = curr // 10
+
+            digits[i] = curr % 10
+
+        if carry:
+            digits.insert(0, 1)
+
+        return digits
+
+    def add_binary(self, a: str, b: str) -> str:
+        """
+        Leetcode Problem #67:
+
+        Given two binary strings a and b, return their sum as a binary string.
+
+        Input: a = "11", b = "1"
+        Output: "100"
+
+        Input: a = "1010", b = "1011"
+        Output: "10101"
+        """
+        n = len(a) - 1
+        m = len(b) - 1
+        carry = 0
+        result = []
+
+        # End loop once we are done with one string
+        while n >= 0 and m >= 0:
+            curr = int(a[n]) + int(b[m]) + carry
+            carry = curr // 2
+
+            result.insert(0, str(curr % 2))
+
+            n -= 1
+            m -= 1
+
+        # Repeat above logic for what's left of n and m
+        for i in range(n, -1, -1):
+            curr = int(a[i]) + carry
+            carry = curr // 2
+
+            result.insert(0, str(curr % 2))
+
+        for j in range(m, -1, -1):
+            curr = int(b[j]) + carry
+            carry = curr // 2
+
+            result.insert(0, str(curr % 2))
+
+        # Check carry one last time
+        if carry:
+            result.insert(0, str(1))
+
+        return "".join(result)
+
+
+    def my_sqrt(self, x: int) -> int:
+        """
+        Leetcode Problem #69:
+
+        Given a non-negative integer x, compute and return the square root of x.
+
+        Since the return type is an integer, the decimal digits are truncated, and only the integer part of the result is returned.
+
+        Note: You are not allowed to use any built-in exponent function or operator, such as pow(x, 0.5) or x ** 0.5.
+
+        Input: x = 4
+        Output: 2
+
+        Input: x = 8
+        Output: 2
+        Explanation: The square root of 8 is 2.82842..., and since the decimal part is truncated, 2 is returned.
+        """
+
+        """
+        Naive divide by 2 solution:
+        A few base cases:
+        x = 0 -> return 0
+        x = 1 -> return 1
+
+        1. sqrt(4) = 2^2 -> 4 // 2 = 2 so we have to go up to 2
+        2. sqrt(8) ~= 2.8 -> 8 // 2 = 4, we would hit 3 * 3 = 9 and 9 > 8 so return 3 - 1 = 2
+        3. sqrt(9) = 3^2 -> 9 // 2 = 4 -> going up to 4 is good enough
+        """
+        # if x == 0 or x == 1:
+        #     return x
+
+        # for num in range(1, (x // 2) + 1):
+        #     squared = num * num
+
+        #     if squared == x:
+        #         return num
+        #     elif squared >= x:
+        #         return num - 1
+
+        # # In the case that we couldn't hit, return num
+        # return num
+
+        """
+        Binary Search Answer
+        """
+        left, right = 0, x
+
+        while left <= right:
+            mid = (left + right) // 2
+            squared = mid * mid
+            if squared == x:
+                return mid
+            elif squared > x:
+                right = mid - 1
+            else:
+                left = mid + 1
+
+        # Because parameter x doesn't have to be a perfect square, this means that we won't find the answer sometimes
+        # Thus we have to look for highest number num such that num * num <= x. If it's num * num > x, we found the closest!
+        return mid if mid * mid < x else mid - 1
 
 solution = Solution()
 
@@ -540,15 +663,30 @@ solution = Solution()
 # for item in examples_53:
 #     print(solution.max_sub_array(nums=item))
 
-examples_66 = [
-    [1,2,3],
-    [4,3,2,1],
-    [9]
+# examples_66 = [
+#     [1,2,3],
+#     [4,3,2,1],
+#     [9]
+# ]
+
+# for item in examples_66:
+#     print("=================================")
+#     print(solution.plus_one(item))
+
+examples_67 = [
+    ["11", "1"],
+    ["1010", "1011"]
 ]
 
-for item in examples_66:
+for item in examples_67:
     print("=================================")
-    print(solution.plus_one(item))
+    print(solution.add_binary(item[0], item[1]))
+
+# examples_69 = [0, 1, 2, 3, 4, 8, 9]
+
+# for item in examples_69:
+#     print("=================================")
+#     print(solution.my_sqrt(item))
 
 # list1 = ListNode(1, next=ListNode(2, next=ListNode(4)))
 # list2 = ListNode(1, next=ListNode(3, next=ListNode(4)))
